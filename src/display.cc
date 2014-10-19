@@ -20,7 +20,7 @@ void StackTracesPrinter::PrintStackTraces(TraceData *traces, int length) {
     if (traces[i].count != 0) {
       total += traces[i].count;
       count++;
-      fprintf(file_, "%"PRIdPTR" ", traces[i].count);
+      fprintf(file_, "%" PRIdPTR " ", traces[i].count);
       PrintStackTrace(&traces[i]);
       fprintf(file_, "\n");
     }
