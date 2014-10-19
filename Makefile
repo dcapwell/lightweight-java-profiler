@@ -1,5 +1,6 @@
 SHELL:=/bin/bash
 UNAME:=$(shell uname | tr '[A-Z]' '[a-z]')
+PWD:=$(shell pwd)
 
 BITS?=64
 ifeq ($(UNAME), darwin)
@@ -66,3 +67,10 @@ all: $(AGENT)
 
 clean:
 	rm -rf $(BUILD_DIR)/*
+
+DOCKER_IMAGE_NAME="lightweight_java_profiler/build"
+docker-build:
+	    @docker build -t $(DOCKER_IMAGE_NAME) .
+
+docker-run:
+	    @docker run -t -i -v $(PWD):$(PWD) -w $(PWD) $(DOCKER_IMAGE_NAME) bash
