@@ -62,8 +62,8 @@ void StackTracesPrinter::PrintLeafHistogram(TraceData *traces, int length) {
 
   sorted_methods.reserve(hot_methods.size());
 
-  for (auto method : hot_methods) {
-    sorted_methods.emplace_back(method.first, method.second);
+  for (auto method = hot_methods.begin(); method != hot_methods.end(); ++ method) {
+    sorted_methods.emplace_back(method->first, method->second);
   }
 
   std::sort(sorted_methods.begin(), sorted_methods.end(), sorter);
@@ -72,9 +72,9 @@ void StackTracesPrinter::PrintLeafHistogram(TraceData *traces, int length) {
   last.method_id = NULL;
   last.lineno = 0;
 
-  for (auto method : sorted_methods) {
-    int count = method.second;
-    PairCallFrame *f = &(method.first);
+  for (auto method = sorted_methods.begin(); method != sorted_methods.end(); ++ method) {
+    int count = method->second;
+    PairCallFrame *f = &(method->first);
     JVMPI_CallFrame curr_frame;
     curr_frame.lineno = f->first;
     curr_frame.method_id = f->second;
