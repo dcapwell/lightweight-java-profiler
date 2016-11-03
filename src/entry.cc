@@ -172,7 +172,10 @@ static void SetFileFromOption(char *equals) {
   }
   size_t len = POSITIVE(name_end - name_begin);
   char *file_name = new char[len];
-  strncpy(file_name, name_begin, len);
+  for(int i = 0; i < len; ++i){
+    file_name[i] = '\0';
+  }
+  strcpy(file_name, name_begin);
   if (strcmp(file_name, "stderr") == 0) {
     Globals::OutFile = stderr;
   } else if (strcmp(file_name, "stdout") == 0) {
